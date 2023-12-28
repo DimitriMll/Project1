@@ -13,8 +13,7 @@ using MySql.Data.MySqlClient;
 namespace Project1
 {
     public partial class CustomerForm : Form
-    {
-        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\dimit\source\repos\Project1\Project1\Database1.mdf;Integrated Security=True");
+    {        
         SqlCommand cmd = new SqlCommand();
         MySqlCommand com = new MySqlCommand();
         public CustomerForm()
@@ -38,6 +37,29 @@ namespace Project1
         }
 
         public void button1_Click(object sender, EventArgs e)
+        {
+            registerMySQLRecord();
+        }
+
+        public void Clear()
+        {
+            txtName.Clear();
+            txtSurname.Clear();
+            txtSex.Items.Clear();
+            txtBirthDate.Value = DateTime.Now;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            Clear();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        public void registerMySQLRecord()
         {
             string connetionString = null;
             string server = "sql5.freesqldatabase.com";
@@ -72,22 +94,30 @@ namespace Project1
             }
         }
 
-        public void Clear()
+        public void registerSQLRecord()
         {
-            txtName.Clear();
-            txtSurname.Clear();
-            txtSex.Items.Clear();
-            txtBirthDate.Value = DateTime.Now;
-        }
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\dimit\source\repos\Project1\Project1\Database1.mdf;Integrated Security=True");
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            Clear();
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
+            try
+            {
+                if (MessageBox.Show("Are you sure you want to save this customer?", "Saving record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    cmd = new SqlCommand("INSERT INTO customer (first_name, last_name, sex, birth_date) VALUES (@first_name, @last_name, @sex, @birth_date)", con);
+                    cmd.Parameters.AddWithValue("@first_name", txtName.Text);
+                    cmd.Parameters.AddWithValue("@last_name", txtSurname.Text);
+                    cmd.Parameters.AddWithValue("@sex", txtSex.Text);
+                    cmd.Parameters.AddWithValue("@birth_date", txtBirthDate.Value);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Record saved successfully");
+                    Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
