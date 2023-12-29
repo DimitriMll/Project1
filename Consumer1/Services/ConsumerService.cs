@@ -10,10 +10,71 @@ namespace Consumer1.Services
 {
     public class ConsumerService
     {
+        public void AddCustomerMongoDB(List<Customer> customers)
+        {
+            var mongoUri = "mongodb+srv://admin:admin@cluster1.j4jqugk.mongodb.net/";
+            IMongoClient client;
+            IMongoCollection<Customer> collection;
+
+            try
+            {
+                client = new MongoClient(mongoUri);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("There was a problem connecting to your " +
+                    "Atlas cluster. Check that the URI includes a valid " +
+                    "username and password, and that your IP address is " +
+                    $"in the Access List. Message: {e.Message}");
+                Console.WriteLine(e);
+                Console.WriteLine();
+                return;
+            }
+
+            var dbName = "Cluster1DB";
+            var collectionName = "customer";
+
+            collection = client.GetDatabase(dbName)
+               .GetCollection<Customer>(collectionName);
+
+            try
+            {                
+                collection.InsertMany(customers);
+                Console.WriteLine($"Successfully inserted {customers.Count()} new customers in MongoDB.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Something went wrong trying to insert the new documents." +
+                    $" Message: {e.Message}");
+                Console.WriteLine(e);
+                Console.WriteLine();
+                return;
+            }
+
+        }
+
+        public Customer GetCustomer(Customer customer)
+        {
+            var mongoUri = "mongodb+srv://admin:admin@cluster1.j4jqugk.mongodb.net/";
+            IMongoClient client;
+            IMongoCollection<Customer> collection;
+            client = new MongoClient(mongoUri);
+
+            var dbName = "Cluster1DB";
+            var collectionName = "customer";
+
+            collection = client.GetDatabase(dbName)
+               .GetCollection<Customer>(collectionName);
+
+            var findFilter = Builders<Customer>
+                .Filter.Eq(t => t.first_name,
+                customer.first_name);
+
+            var findResult = collection.Find(findFilter).FirstOrDefault();
+            return findResult;
+        }
         public void Main(string[] args)
         {
-            
-
             var mongoUri = "mongodb+srv://admin:admin@cluster1.j4jqugk.mongodb.net/";
             IMongoClient client;
             IMongoCollection<Customer> collection;
