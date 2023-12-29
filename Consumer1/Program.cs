@@ -13,7 +13,7 @@ namespace AtlasStarter
             //ConsumerService consumerService = new ConsumerService();
             //consumerService.Main(args);
             MySQLConsumer mySQLConsumer = new MySQLConsumer();
-            mySQLConsumer.GetCustomersMySQL();
+            mySQLConsumer.SyncDatabases();
         }
     }
 }

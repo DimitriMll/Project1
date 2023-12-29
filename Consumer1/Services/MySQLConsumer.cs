@@ -15,7 +15,7 @@ namespace Consumer1.Services
     {
         ConsumerService consumerService = new ConsumerService();
 
-        public void GetCustomersMySQL()
+        public void SyncDatabases()
         {
             int count = 0;
             List<Customer> customers = new List<Customer>();
@@ -82,7 +82,7 @@ namespace Consumer1.Services
                     }
                     else
                     {
-                        Console.WriteLine($"{count} Customers already exists in MongoDB\n");
+                        Console.WriteLine($"{count} Customers does not exists in MongoDB\n");
                         // Add new customers to MongoDB
                         consumerService.AddCustomerMongoDB(customersMongoDB);
                     }
