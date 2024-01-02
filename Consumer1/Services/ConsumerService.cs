@@ -38,8 +38,14 @@ namespace Consumer1.Services
                .GetCollection<Customer>(collectionName);
 
             try
-            {                
-                collection.InsertMany(customers);
+            {
+                foreach (var customer in customers)
+                {
+                    collection.ReplaceOneAsync(
+                    doc => doc.id == customer.id,
+                    customer,
+                    new ReplaceOptions { IsUpsert = true });
+                }
                 Console.WriteLine($"Successfully inserted {customers.Count()} new customers in MongoDB.");
             }
             catch (Exception e)
@@ -67,8 +73,8 @@ namespace Consumer1.Services
                .GetCollection<Customer>(collectionName);
 
             var findFilter = Builders<Customer>
-                .Filter.Eq(t => t.first_name,
-                customer.first_name);
+                .Filter.Eq(t => t.id,
+                customer.id);
 
             var findResult = collection.Find(findFilter).FirstOrDefault();
             return findResult;
@@ -93,13 +99,13 @@ namespace Consumer1.Services
                 Console.WriteLine();
                 return;
             }
-            
+
             var dbName = "Cluster1DB";
             var collectionName = "customer";
 
             collection = client.GetDatabase(dbName)
                .GetCollection<Customer>(collectionName);
-            
+
             var docs = Customer.GetCustomers();
 
             try
