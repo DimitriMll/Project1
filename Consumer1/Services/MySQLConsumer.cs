@@ -18,7 +18,6 @@ namespace Consumer1.Services
 
         public void SyncDatabases()
         {
-            int count = 0;
             List<Customer> customers = new List<Customer>();
             string? connetionString = null;
             string server = "sql5.freesqldatabase.com";
@@ -98,6 +97,42 @@ namespace Consumer1.Services
             {
                 Console.WriteLine(ex.Message);
             }            
+        }
+
+        public List<Customer> GetAllCustomers()
+        {
+            List<Customer> customers = new List<Customer>();
+            string? connetionString = null;
+            string server = "sql5.freesqldatabase.com";
+            string database = "sql5673207";
+            string username = "sql5673207";
+            string password = "8PH51R8Euv";
+            MySqlConnection cnn;
+            connetionString = "Server=" + server + ";Database=" + database + ";Uid=" + username + ";Pwd=" + password + ";";
+            cnn = new MySqlConnection(connetionString);
+            cnn.Open();
+            MySqlCommand com = cnn.CreateCommand();
+            com.CommandText = "SELECT * FROM customer";
+            MySqlDataReader reader = com.ExecuteReader();
+
+            // Display column headers
+            Console.WriteLine($"{reader.GetName(0),-4} {reader.GetName(1),-10} {reader.GetName(2),10} {reader.GetName(3),10} {reader.GetName(4),10} {reader.GetName(5),10}");
+
+            while (reader.Read())
+            {
+                // Read data from MySQL and create Customer objects
+                Console.WriteLine($"{reader.GetInt32(0),-4} {reader.GetString(1),-10} {reader.GetString(2),10} {reader.GetString(3),10} {reader.GetMySqlDateTime(4),10} {reader.GetInt32(0),10}");
+                customers.Add(new Customer
+                {
+                    id = reader.GetInt32(0),
+                    first_name = reader.GetString(1),
+                    last_name = reader.GetString(2),
+                    sex = reader.GetString(3),
+                    birth_date = (DateTime)reader.GetMySqlDateTime(4),
+                    status = reader.GetInt32(5)
+                });
+            }
+            return customers;
         }
 
         public void UpdateCustomersStatus(List<Customer> customers)
