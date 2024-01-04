@@ -1,0 +1,53 @@
+﻿@{
+	ViewData["Title"] = "Sync Databases";
+	string[] TableHeaders = new string[] {"ID"
+						,"First Name"
+						,"Last Name"
+						,"Sex"
+						,"Birth Date"
+						,"Status"
+						,"Updated At"};
+}
+
+<div class="table">
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				@{
+					foreach (var head in TableHeaders)
+					{
+						<th>
+							@head
+						</th>
+					}
+				}
+			</tr>
+		</thead>
+
+		<tbody>
+			@{
+				if (Model != null)
+				{
+					foreach (var Customer in Model)
+					{
+						<tr>
+							<td>@Customer.id</td>
+							<td>@Customer.first_name</td>
+							<td>@Customer.last_name</td>
+							<td>@Customer.sex</td>
+							<td>@Customer.birth_date</td>
+							<td>@Customer.status</td>
+							<td>@Customer.updated_at</td>
+						</tr>
+					}
+				}
+			}
+		</tbody>
+	</table>
+</div>
+
+<div class="btns">
+	<a asp-action="Index" class="btn btn-primary">Add Customer</a>
+	<a class="btn btn-primary">Update Table</a>
+	<a class="btn btn-primary">Delete Customer</a>
+</div>

@@ -99,7 +99,7 @@ namespace Consumer1.Services
             }            
         }
 
-        public List<Customer> GetAllCustomers()
+        public List<Customer> GetCustomers()
         {
             List<Customer> customers = new List<Customer>();
             string? connetionString = null;
@@ -112,16 +112,15 @@ namespace Consumer1.Services
             cnn = new MySqlConnection(connetionString);
             cnn.Open();
             MySqlCommand com = cnn.CreateCommand();
-            com.CommandText = "SELECT * FROM customer";
+            com.CommandText = "SELECT * FROM customer WHERE status = 1";
             MySqlDataReader reader = com.ExecuteReader();
 
             // Display column headers
-            Console.WriteLine($"{reader.GetName(0),-4} {reader.GetName(1),-10} {reader.GetName(2),10} {reader.GetName(3),10} {reader.GetName(4),10} {reader.GetName(5),10}");
+            Console.WriteLine($"{reader.GetName(0),-4} {reader.GetName(1),-10} {reader.GetName(2),10} {reader.GetName(3),10} {reader.GetName(4),10} {reader.GetName(5),10} {reader.GetName(6),10}");
 
             while (reader.Read())
             {
                 // Read data from MySQL and create Customer objects
-                Console.WriteLine($"{reader.GetInt32(0),-4} {reader.GetString(1),-10} {reader.GetString(2),10} {reader.GetString(3),10} {reader.GetMySqlDateTime(4),10} {reader.GetInt32(0),10}");
                 customers.Add(new Customer
                 {
                     id = reader.GetInt32(0),
@@ -129,10 +128,20 @@ namespace Consumer1.Services
                     last_name = reader.GetString(2),
                     sex = reader.GetString(3),
                     birth_date = (DateTime)reader.GetMySqlDateTime(4),
-                    status = reader.GetInt32(5)
+                    status = reader.GetInt32(5),
+                    updated_at = (DateTime)reader.GetMySqlDateTime(6)
                 });
             }
-            return customers;
+            if (customers.Count > 0)
+            {
+                Console.WriteLine($"{reader.GetInt32(0),-4} {reader.GetString(1),-10} {reader.GetString(2),10} {reader.GetString(3),10} {reader.GetMySqlDateTime(4),10} {reader.GetInt32(5),10} {reader.GetMySqlDateTime(6),10}");
+                UpdateCustomersStatus(customers);
+                return customers;
+            }
+            else
+            {
+                return new List<Customer>();
+            }                
         }
 
         public void UpdateCustomersStatus(List<Customer> customers)
@@ -150,7 +159,7 @@ namespace Consumer1.Services
             {
                 cnn.Open();
                 MySqlCommand com = cnn.CreateCommand();
-                com.CommandText = $"UPDATE customer SET status = 2 WHERE id IN ({string.Join(",", customers.Select(x =>x.id))})";
+                com.CommandText = $"UPDATE customer SET status = 2, updated_at = NOW() WHERE id IN ({string.Join(",", customers.Select(x =>x.id))})";
                 com.ExecuteNonQuery();;
                 MySqlDataReader reader = com.ExecuteReader();
                 cnn.Close();

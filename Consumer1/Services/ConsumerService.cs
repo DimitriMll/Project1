@@ -41,10 +41,11 @@ namespace Consumer1.Services
             {
                 foreach (var customer in customers)
                 {
+                    customer.status = 2;
+                    customer.updated_at = DateTime.Now;
                     collection.ReplaceOneAsync(
                     doc => doc.id == customer.id,
-                    customer,
-                    new ReplaceOptions { IsUpsert = true });
+                    customer);
                 }
                 Console.WriteLine($"Successfully inserted {customers.Count()} new customers in MongoDB.");
             }
@@ -56,7 +57,6 @@ namespace Consumer1.Services
                 Console.WriteLine();
                 return;
             }
-
         }
 
         public Customer GetCustomer(Customer customer)

@@ -14,6 +14,7 @@ namespace Consumer1.Models
         public string? sex { get; set; }
         public DateTime birth_date { get; set; }
         public int status { get; set; }
+        public DateTime updated_at { get; set; }
          
         public static Customer GetCustomers()
         {
