@@ -1,4 +1,5 @@
-﻿@{
+﻿@using FrontEnd.Controllers
+@{
 	ViewData["Title"] = "Sync Databases";
 	string[] TableHeaders = new string[] {"ID"
 						,"First Name"
@@ -7,7 +8,9 @@
 						,"Birth Date"
 						,"Status"
 						,"Updated At"};
-	CustomersViewModel Model = ViewData.Model as CustomersViewModel;
+	CustomersViewModel? Model = ViewData.Model as CustomersViewModel;
+	MySqlController mySqlController = new MySqlController();
+	MongoController mongoController = new MongoController();
 }
 
 <style>
@@ -49,16 +52,18 @@
 
 		.table h3 {
 			margin-bottom: 10px;
+			color:aliceblue;
 		}
 
 		.table table {
 			width: 100%;
+			background-color: azure;
 		}
 </style>
 
 <div class="add-customer">
 	<h3>Add New Customer</h3>
-	<form id="customerForm">
+	<form id="customerForm" method="post">
 		<div class="form-group">
 			<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
 			<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
@@ -74,81 +79,82 @@
 
 
 <div class="table-container">
-    <div class="table">
-        <h3>MySQL Database</h3>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    @{
-                        foreach (var head in TableHeaders)
-                        {
-                            <th>
-                                @head
-                            </th>
-                        }
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    if (Model != null)
-                    {
-                        foreach (var Customer in Model.customersMySql)
-                        {
-                            <tr>
-                                <td>@Customer.id</td>
-                                <td>@Customer.first_name</td>
-                                <td>@Customer.last_name</td>
-                                <td>@Customer.sex</td>
-                                <td>@Customer.birth_date.ToString("dd/MM/yy")</td>
-                                <td>@Customer.status</td>
-                                <td>@Customer.updated_at.ToString("dd/MM/yy")</td>
-                            </tr>
-                        }
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
+	<div class="table">
+		<h3>MySQL Database</h3>
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					@{
+						foreach (var head in TableHeaders)
+						{
+							<th>
+								@head
+							</th>
+						}
+					}
+				</tr>
+			</thead>
+			<tbody>
+				@{
+					if (Model != null)
+					{
+						foreach (var Customer in Model.customersMySql)
+						{
+							<tr>
+								<td>@Customer.id</td>
+								<td>@Customer.first_name</td>
+								<td>@Customer.last_name</td>
+								<td>@Customer.sex</td>
+								<td>@Customer.birth_date.ToString("dd/MM/yy")</td>
+								<td>@Customer.status</td>
+								<td>@Customer.updated_at.ToString("dd/MM/yy")</td>
+							</tr>
+						}
+					}
+				}
+			</tbody>
+		</table>
+	</div>
 
-    <div class="table">
-        <h3>Mongo Database</h3>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    @{
-                        foreach (var head in TableHeaders)
-                        {
-                            <th>
-                                @head
-                            </th>
-                        }
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    if (Model != null)
-                    {
-                        foreach (var Customer in Model.customersMongo)
-                        {
-                            <tr>
-                                <td>@Customer.id</td>
-                                <td>@Customer.first_name</td>
-                                <td>@Customer.last_name</td>
-                                <td>@Customer.sex</td>
-                                <td>@Customer.birth_date.ToString("dd/MM/yy")</td>
-                                <td>@Customer.status</td>
-                                <td>@Customer.updated_at.ToString("dd/MM/yy")</td>
-                            </tr>
-                        }
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
+	<div class="table">
+		<h3>Mongo Database</h3>
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					@{
+						foreach (var head in TableHeaders)
+						{
+							<th>
+								@head
+							</th>
+						}
+					}
+				</tr>
+			</thead>
+			<tbody>
+				@{
+					if (Model != null)
+					{
+						foreach (var Customer in Model.customersMongo)
+						{
+							<tr>
+								<td>@Customer.id</td>
+								<td>@Customer.first_name</td>
+								<td>@Customer.last_name</td>
+								<td>@Customer.sex</td>
+								<td>@Customer.birth_date.ToString("dd/MM/yy")</td>
+								<td>@Customer.status</td>
+								<td>@Customer.updated_at.ToString("dd/MM/yy")</td>
+							</tr>
+						}
+					}
+				}
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <div class="sync-button">
-    <button type="submit" class="btn btn-info">Sync Databases</button>
+	<button type="button" class="btn btn-info" id="syncButton">Sync Databases</button>
 </div>
+<a href="/Home/Customers" class="btn btn-primary">Customers</a>

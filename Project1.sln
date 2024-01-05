@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consumer1", "Consumer1\Cons
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBusProducer", "ServiceBus\ServiceBusProducer.csproj", "{178FEC49-D84B-4CE5-831A-3786AC941842}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceBusConsumer", "ServiceBusConsumer\ServiceBusConsumer.csproj", "{E5485F98-4E50-4CF9-9951-B830008CC926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBusConsumer", "ServiceBusConsumer\ServiceBusConsumer.csproj", "{E5485F98-4E50-4CF9-9951-B830008CC926}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEnd", "FrontEnd\FrontEnd.csproj", "{3953C3BB-BEF9-4CC0-9E01-202F68112356}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEnd", "FrontEnd\FrontEnd.csproj", "{3953C3BB-BEF9-4CC0-9E01-202F68112356}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

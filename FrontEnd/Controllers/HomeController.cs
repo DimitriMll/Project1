@@ -1,42 +1,52 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FrontEnd.Models;
-using Consumer1.Services;
-using System.Net;
-using MySql.Data.MySqlClient;
-using FrontEnd.Controllers;
 
-namespace Data_Grid.Controllers
+namespace FrontEnd.Controllers
 {
-    public class HomeController : Controller
+	public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private MySqlController mySqlController = new MySqlController();
         private MongoController mongoController = new MongoController();
 
-        public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger)
+		{
+			_logger = logger;
+		}
+		public IActionResult Index()
         {
-            
+            var viewModel = new CustomersViewModel
+            {
+                customersMySql = mySqlController.GetCustomersMySql(),
+                customersMongo = mongoController.GetCustomersMongo()
+            };
+
+            return View(viewModel);
         }
 
-        public IActionResult Index()
-        {
+		[HttpPost]
+		public IActionResult GetCustomersMySql()
+		{
 			var viewModel = new CustomersViewModel
 			{
-				customersMySql = mySqlController.GetCustomersMySql(),
-				customersMongo = mongoController.GetCustomersMongo()
+				customersMySql = mySqlController.GetCustomersMySql(), // Retrieve updated data here
+				customersMongo = mongoController.GetCustomersMongo()  // Other necessary data assignment
 			};
 
-			return View(viewModel);
+			return View(viewModel); // Return the updated data to the Index view
 		}
-        public IActionResult Privacy()
+		public IActionResult Privacy()
         {
             return View();
+        }        
+        public ActionResult SyncAction()
+        {
+            Console.WriteLine("SyncAction");
+            return Json(new { success = true }); // Return JSON or any necessary response
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
