@@ -1,5 +1,6 @@
 ﻿using FrontEnd.Models;
 using MySql.Data.MySqlClient;
+using System.Xml.Linq;
 
 namespace FrontEnd.Controllers
 {
@@ -45,6 +46,40 @@ namespace FrontEnd.Controllers
 			catch (Exception ex)
 			{
 				throw ex;
+			}
+		}
+
+		public async Task InsertCustomerMySql(Customer customer)
+		{
+			string? connetionString = null;
+			string server = "sql5.freesqldatabase.com";
+			string database = "sql5673207";
+			string username = "sql5673207";
+			string password = "8PH51R8Euv";
+			MySqlCommand com = new MySqlCommand();
+			MySqlConnection con = new MySqlConnection();
+
+			connetionString = "Server=" + server + ";Database=" + database + ";Uid=" + username + ";Pwd=" + password + ";";
+			con.ConnectionString = connetionString;
+
+			try
+			{
+				con.Open();
+				com = con.CreateCommand();
+				com.CommandText = "INSERT INTO customer (first_name, last_name, sex, birth_date, status, updated_at) VALUES (@first_name, @last_name, @sex, @birth_date, @status, @updated_at)";
+				com.Parameters.AddWithValue("@first_name", customer.first_name);
+				com.Parameters.AddWithValue("@last_name", customer.last_name);
+				com.Parameters.AddWithValue("@sex", customer.sex);
+				com.Parameters.AddWithValue("@birth_date", customer.birth_date);
+				com.Parameters.AddWithValue("@status", customer.status);
+				com.Parameters.AddWithValue("@updated_at", customer.updated_at);
+				await com.ExecuteNonQueryAsync();
+				con.Close();
+			}
+			catch (Exception)
+			{
+
+				throw;
 			}
 		}
 	}

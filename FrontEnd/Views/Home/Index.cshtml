@@ -52,7 +52,7 @@
 
 		.table h3 {
 			margin-bottom: 10px;
-			color:aliceblue;
+			color: aliceblue;
 		}
 
 		.table table {
@@ -63,7 +63,7 @@
 
 <div class="add-customer">
 	<h3>Add New Customer</h3>
-	<form id="customerForm" method="post">
+	<form id="customerForm" method="PostSqlInsert">
 		<div class="form-group">
 			<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
 			<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
@@ -154,7 +154,8 @@
 	</div>
 </div>
 
-<div class="sync-button">
-	<button type="button" class="btn btn-info" id="syncButton">Sync Databases</button>
+<div>
+	<form method="post">
+		<button type="submit" class="btn btn-primary">Sync Databases</button>
+	</form>
 </div>
-<a href="/Home/Customers" class="btn btn-primary">Customers</a>
