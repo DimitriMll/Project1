@@ -1,7 +1,14 @@
 ﻿@using FrontEnd.Controllers
 @{
 	ViewData["Title"] = "Sync Databases";
-	string[] TableHeaders = new string[] {"ID"
+	string[] TableHeadersMySql = new string[] {"ID"
+						,"First Name"
+						,"Last Name"
+						,"Sex"
+						,"Birth Date"
+						,"Status"
+						,"Inserted At"};
+	string[] TableHeadersMongo = new string[] {"ID"
 						,"First Name"
 						,"Last Name"
 						,"Sex"
@@ -63,7 +70,7 @@
 
 <div class="add-customer">
 	<h3>Add New Customer</h3>
-	<form id="customerForm" method="PostSqlInsert">
+	<form id="customerForm" method="post">
 		<div class="form-group">
 			<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
 			<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
@@ -73,7 +80,7 @@
 			</select>
 			<input type="date" class="form-control" id="birthDate" name="birthDate" placeholder="Birth Date" required>
 		</div>
-		<button type="submit" class="btn btn-success">Add Customer</button>
+		<button type="submit" class="btn btn-success" id="btnSubmit" asp-action="AddCustomer">Add Customer</button>
 	</form>
 </div>
 
@@ -85,7 +92,7 @@
 			<thead>
 				<tr>
 					@{
-						foreach (var head in TableHeaders)
+						foreach (var head in TableHeadersMySql)
 						{
 							<th>
 								@head
@@ -122,7 +129,7 @@
 			<thead>
 				<tr>
 					@{
-						foreach (var head in TableHeaders)
+						foreach (var head in TableHeadersMongo)
 						{
 							<th>
 								@head
@@ -156,6 +163,6 @@
 
 <div>
 	<form method="post">
-		<button type="submit" class="btn btn-primary">Sync Databases</button>
+		<button type="submit" class="btn btn-primary" asp-action="Sync">Sync Databases</button>
 	</form>
 </div>

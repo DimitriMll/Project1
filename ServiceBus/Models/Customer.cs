@@ -1,4 +1,4 @@
-﻿namespace FrontEnd.Models
+﻿namespace ServiceBusProducer.Models
 {
     public class Customer
     {

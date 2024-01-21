@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Consumer1\Consumer1.csproj" />
-    <ProjectReference Include="..\Project1\Project1.csproj" />
+    <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
+    <PackageReference Include="MySql.Data" Version="8.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ServiceBusConsumer\ServiceBusConsumer.csproj" />
     <ProjectReference Include="..\ServiceBus\ServiceBusProducer.csproj" />
   </ItemGroup>
