@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBusProducer", "ServiceBus\ServiceBusProducer.csproj", "{178FEC49-D84B-4CE5-831A-3786AC941842}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBusProducer", "ServiceBusProducer\ServiceBusProducer.csproj", "{178FEC49-D84B-4CE5-831A-3786AC941842}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBusConsumer", "ServiceBusConsumer\ServiceBusConsumer.csproj", "{E5485F98-4E50-4CF9-9951-B830008CC926}"
 EndProject
