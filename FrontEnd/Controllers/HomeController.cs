@@ -1,13 +1,10 @@
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using FrontEnd.Models;
 
 namespace FrontEnd.Controllers
 {
-	public class HomeController : Controller
+    public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private MySqlController mySqlController = new MySqlController();
@@ -27,26 +24,26 @@ namespace FrontEnd.Controllers
 
             return View(viewModel);
         }
-
-		[HttpPost]
-		public IActionResult GetCustomersMySql()
-		{
-			var viewModel = new CustomersViewModel
-			{
-				customersMySql = mySqlController.GetCustomersMySql(), // Retrieve updated data here
-				customersMongo = mongoController.GetCustomersMongo()  // Other necessary data assignment
-			};
-
-			return View(viewModel); // Return the updated data to the Index view
+        public async Task<IActionResult> AddCustomerAsync()
+        {
+            Customer customer = new Customer();
+            customer.first_name = Request.Form["firstName"];
+            customer.last_name = Request.Form["lastName"];
+            customer.sex = Request.Form["sex"];
+            customer.birth_date = DateTime.Parse(Request.Form["birthDate"]);
+            customer.status = 1;
+            customer.updated_at = DateTime.Now;
+            await mySqlController.InsertCustomerMySql(customer);
+			return RedirectToAction("Index");
 		}
-		public IActionResult Privacy()
+        public IActionResult Sync()
         {
-            return View();
-        }        
-        public ActionResult SyncAction()
-        {
-            Console.WriteLine("SyncAction");
-            return Json(new { success = true }); // Return JSON or any necessary response
+            List<Customer>customersMySql = new List<Customer>();
+            customersMySql = mySqlController.GetCustomersMySql();
+
+            mongoController.AddCustomerMongoDB(customersMySql);
+
+			return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

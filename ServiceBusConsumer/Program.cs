@@ -1,12 +1,12 @@
 ﻿using Azure.Messaging.ServiceBus;
-using Consumer1.Models;
-using Consumer1.Services;
-using System;
-using System.Threading.Tasks;
+using ServiceBusConsumer.Models;
+using ServiceBusConsumer.Services;
 
 ServiceBusClient client;
 ServiceBusProcessor processor;
-ConsumerService consumerService = new ConsumerService();
+string mongoDBConnectionString = "mongodb+srv://admin:admin@cluster1.j4jqugk.mongodb.net/";
+MongoDBConnection mongoDBConnection = new MongoDBConnection(mongoDBConnectionString);
+ConsumerService consumerService = new ConsumerService(mongoDBConnectionString);
 List<Customer> customersList = new List<Customer>();
 
 var clientOptions = new ServiceBusClientOptions()

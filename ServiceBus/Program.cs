@@ -1,25 +1,29 @@
 ﻿using Azure.Messaging.ServiceBus;
-using Consumer1.Models;
-using Consumer1.Services;
 using System.Text;
 using Newtonsoft.Json;
-
+using ServiceBusProducer.Services;
 
 ServiceBusClient client;
 
 ServiceBusSender sender;
 
-MySQLConsumer mySQLConsumer = new MySQLConsumer();
+string mySqlConnectionString = "Server=sql5.freesqldatabase.com;Database=sql5673207;Uid=sql5673207;Pwd=8PH51R8Euv;";
+
+DatabaseConnection dbConnection = new DatabaseConnection(mySqlConnectionString);
+
+ProducerService mySQLConsumer = new ProducerService(mySqlConnectionString);
 
 var clientOptions = new ServiceBusClientOptions()
 {
     TransportType = ServiceBusTransportType.AmqpWebSockets
 };
+
 client = new ServiceBusClient("Endpoint=sb://project-1.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=tJ7FaBZ48ldhdLjy9QGDGYBbtonNtHyzp+ASbEAGxbc=", clientOptions);
 sender = client.CreateSender("customer");
+
 try
 {
-    var customer = mySQLConsumer.GetCustomers();
+    var customer = mySQLConsumer.GetCustomersMySql();
     if (customer.Count > 0)
     {
         foreach (var item in customer)
@@ -38,8 +42,6 @@ catch (Exception e)
 }
 finally
 {
-    // Calling DisposeAsync on client types is required to ensure that network
-    // resources and other unmanaged objects are properly cleaned up.
     await sender.DisposeAsync();
     await client.DisposeAsync();
 }

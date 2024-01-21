@@ -1,10 +1,9 @@
 ﻿using FrontEnd.Models;
 using MySql.Data.MySqlClient;
-using System.Xml.Linq;
 
 namespace FrontEnd.Controllers
 {
-	public class MySqlController
+    public class MySqlController
 	{
 		public List<Customer> GetCustomersMySql()
 		{
@@ -43,10 +42,10 @@ namespace FrontEnd.Controllers
 				con.Close();
 				return customers;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				throw ex;
-			}
+                throw;
+            }
 		}
 
 		public async Task InsertCustomerMySql(Customer customer)

@@ -43,10 +43,12 @@ namespace Consumer1.Services
                 {
                     customer.status = 2;
                     customer.updated_at = DateTime.Now;
-                    collection.ReplaceOneAsync(
-                    doc => doc.id == customer.id,
-                    customer);
-                }
+
+					var filter = Builders<Customer>.Filter.Eq(c => c.id, customer.id);
+					var updateOptions = new UpdateOptions { IsUpsert = true };
+
+					collection.ReplaceOne(filter, customer, updateOptions);
+				}
                 Console.WriteLine($"Successfully inserted {customers.Count()} new customers in MongoDB.");
             }
             catch (Exception e)

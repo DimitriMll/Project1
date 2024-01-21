@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1", "Project1\Project1.csproj", "{5F7ECF04-A0A6-4851-AA73-54543F0DA7A6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consumer1", "Consumer1\Consumer1.csproj", "{298DC506-D224-4A7C-B40E-59FF73DB209C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBusProducer", "ServiceBus\ServiceBusProducer.csproj", "{178FEC49-D84B-4CE5-831A-3786AC941842}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBusConsumer", "ServiceBusConsumer\ServiceBusConsumer.csproj", "{E5485F98-4E50-4CF9-9951-B830008CC926}"
@@ -19,14 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5F7ECF04-A0A6-4851-AA73-54543F0DA7A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F7ECF04-A0A6-4851-AA73-54543F0DA7A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F7ECF04-A0A6-4851-AA73-54543F0DA7A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F7ECF04-A0A6-4851-AA73-54543F0DA7A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{298DC506-D224-4A7C-B40E-59FF73DB209C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{298DC506-D224-4A7C-B40E-59FF73DB209C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{298DC506-D224-4A7C-B40E-59FF73DB209C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{298DC506-D224-4A7C-B40E-59FF73DB209C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{178FEC49-D84B-4CE5-831A-3786AC941842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{178FEC49-D84B-4CE5-831A-3786AC941842}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{178FEC49-D84B-4CE5-831A-3786AC941842}.Release|Any CPU.ActiveCfg = Release|Any CPU
