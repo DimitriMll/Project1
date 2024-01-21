@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets"
+    },
+    "mongodb1": {
+      "type": "mongodb",
+      "connectionId": "mongodb+srv:::admin:admin@cluster1.j4jqugk.mongodb.net",
+      "dynamicId": null
+    }
+  }
+}
