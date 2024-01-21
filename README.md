@@ -1,6 +1,19 @@
-# Sync Databases
+# [Sync Databases](https://project1-dimitrimll.azurewebsites.net/)
 
 Manage and sync customers data between a SQL DB and a NoSQL DB
+
+You can access the Web App here: [Sync Databases](https://project1-dimitrimll.azurewebsites.net/)
+
+## Table of Contents
+
+- [About](#about)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [How it Works](#how-it-works)
+- [Run Locally](#run-locally)
+  - [Prerequisites](#prerequisites)
+  - [How to run](#how-to-run)
+- [To-Dos | Project Improvements](#to-dos--project-improvements)
 
 ## About
 
@@ -27,8 +40,12 @@ The project aims to showcase integration with both relational (MySQL) and no rel
 ![Add Customer](https://github.com/DimitriMll/DimitriMll/blob/main/assets/addCustomer.png?raw=true)
 - Then it will be displayed as it follows
 ![Database](https://github.com/DimitriMll/DimitriMll/blob/main/assets/databases.png?raw=true)
-- Then you can sync the databases clicking the "Sync Databases" button
+- Then you can sync the databases clicking the `Sync Databases` button
 ![Sync Databases](https://github.com/DimitriMll/DimitriMll/blob/main/assets/syncDatabases.png?raw=true)
+
+You can access the Web App here: [Sync Databases](https://project1-dimitrimll.azurewebsites.net/)
+
+## Run locally
 
 ### Prerequisites
 
@@ -38,9 +55,16 @@ The project aims to showcase integration with both relational (MySQL) and no rel
 
 [<img src="https://github.com/devicons/devicon/blob/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="25" height="25"/>](https://dev.mysql.com/downloads/mysql) [MySQL Server](https://dev.mysql.com/downloads/mysql)
 
-### Installation
+### How to run
 
 1. Clone the repository:
 
    ```bash
    git clone https://github.com/DimitriMll/Project1.git
+
+2. Run the "Front End" project on Visual Studio
+
+## To-Dos | Project improvements
+
+- Add `Edit` and `Delete` operations for each customer | **28/01**
+- Work with `Status` based database sync and update `Status` on the source database after Sync | **28/01**
