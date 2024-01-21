@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServiceBusConsumer\ServiceBusConsumer.csproj" />
-    <ProjectReference Include="..\ServiceBus\ServiceBusProducer.csproj" />
+    <ProjectReference Include="..\ServiceBusProducer\ServiceBusProducer.csproj" />
   </ItemGroup>
 
 </Project>
