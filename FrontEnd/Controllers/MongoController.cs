@@ -35,7 +35,7 @@ namespace FrontEnd.Controllers
             return customers;
         }
 
-		public void AddCustomerMongoDB(List<Customer> customers)
+		public async Task AddCustomerMongoDB(List<Customer> customers)
 		{
 			var mongoUri = "mongodb+srv://admin:admin@cluster1.j4jqugk.mongodb.net/";
 			IMongoClient client;
@@ -70,9 +70,9 @@ namespace FrontEnd.Controllers
 					customer.updated_at = DateTime.Now;
 
 					var filter = Builders<Customer>.Filter.Eq(c => c.id, customer.id);
-					var updateOptions = new UpdateOptions { IsUpsert = true }; // This will insert if the document doesn't exist
+					var updateOptions = new ReplaceOptions { IsUpsert = true }; // This will insert if the document doesn't exist
 
-					collection.ReplaceOne(filter, customer, updateOptions);
+					await collection.ReplaceOneAsync(filter, customer, updateOptions);
 				}
 				Console.WriteLine($"Successfully inserted {customers.Count()} new customers in MongoDB.");
 			}

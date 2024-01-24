@@ -36,12 +36,12 @@ namespace FrontEnd.Controllers
             await mySqlController.InsertCustomerMySql(customer);
 			return RedirectToAction("Index");
 		}
-        public IActionResult Sync()
+        public async Task<IActionResult> SyncAsync()
         {
             List<Customer>customersMySql = new List<Customer>();
             customersMySql = mySqlController.GetCustomersMySql();
 
-            mongoController.AddCustomerMongoDB(customersMySql);
+            await mongoController.AddCustomerMongoDB(customersMySql);
 
 			return RedirectToAction("Index");
         }
