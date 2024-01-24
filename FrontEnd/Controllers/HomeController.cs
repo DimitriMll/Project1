@@ -27,16 +27,23 @@ namespace FrontEnd.Controllers
         }
         public async Task<IActionResult> AddCustomerAsync()
         {
-            Customer customer = customerController.BuildCustomer(Request.Form);            
+            Customer customer = customerController.BuildCustomer(Request.Form);
+
             await mySqlController.InsertCustomerMySql(customer);
+
+            _logger.LogInformation("Customer added to MySql");
+
 			return RedirectToAction("Index");
 		}
         public async Task<IActionResult> SyncAsync()
         {
             List<Customer>customersMySql = new List<Customer>();
+
             customersMySql = mySqlController.GetCustomersMySql();
 
             await mongoController.AddCustomerMongoDB(customersMySql);
+
+            _logger.LogInformation("Customers synced to Mongo");
 
 			return RedirectToAction("Index");
         }

@@ -8,7 +8,7 @@ namespace FrontEnd.Controllers
         public List<Customer> GetCustomersMongo()
         {
             var mongoUri = "mongodb+srv://admin:admin@cluster1.j4jqugk.mongodb.net/";
-            IMongoClient client;
+            MongoClient client;
             IMongoCollection<Customer> collection;
 
             try
@@ -23,6 +23,7 @@ namespace FrontEnd.Controllers
                     $"in the Access List. Message: {e.Message}");
                 Console.WriteLine(e);
                 Console.WriteLine();
+
                 return new List<Customer>();
             }
 
@@ -32,13 +33,14 @@ namespace FrontEnd.Controllers
             collection = client.GetDatabase(dbName)
                .GetCollection<Customer>(collectionName);
             var customers = collection.Find(_ => true).ToList();
+
             return customers;
         }
 
 		public async Task AddCustomerMongoDB(List<Customer> customers)
 		{
 			var mongoUri = "mongodb+srv://admin:admin@cluster1.j4jqugk.mongodb.net/";
-			IMongoClient client;
+			MongoClient client;
 			IMongoCollection<Customer> collection;
 
 			try
@@ -53,6 +55,7 @@ namespace FrontEnd.Controllers
 					$"in the Access List. Message: {e.Message}");
 				Console.WriteLine(e);
 				Console.WriteLine();
+
 				return;
 			}
 
@@ -74,6 +77,7 @@ namespace FrontEnd.Controllers
 
 					await collection.ReplaceOneAsync(filter, customer, updateOptions);
 				}
+
 				Console.WriteLine($"Successfully inserted {customers.Count()} new customers in MongoDB.");
 			}
 			catch (Exception e)
@@ -82,6 +86,7 @@ namespace FrontEnd.Controllers
 					$" Message: {e.Message}");
 				Console.WriteLine(e);
 				Console.WriteLine();
+
 				return;
 			}
 		}
