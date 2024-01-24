@@ -9,6 +9,7 @@ namespace FrontEnd.Controllers
         private readonly ILogger<HomeController> _logger;
         private MySqlController mySqlController = new MySqlController();
         private MongoController mongoController = new MongoController();
+        private CustomerController customerController = new CustomerController();
 
 		public HomeController(ILogger<HomeController> logger)
 		{
@@ -26,22 +27,25 @@ namespace FrontEnd.Controllers
         }
         public async Task<IActionResult> AddCustomerAsync()
         {
-            Customer customer = new Customer();
-            customer.first_name = Request.Form["firstName"];
-            customer.last_name = Request.Form["lastName"];
-            customer.sex = Request.Form["sex"];
-            customer.birth_date = DateTime.Parse(Request.Form["birthDate"]);
-            customer.status = 1;
-            customer.updated_at = DateTime.Now;
+            Customer customer = customerController.BuildCustomer(Request.Form);
+
             await mySqlController.InsertCustomerMySql(customer);
+
+            _logger.LogInformation("Customer added to MySql");
+
 			return RedirectToAction("Index");
 		}
-        public IActionResult Sync()
+        public async Task<IActionResult> SyncAsync()
         {
             List<Customer>customersMySql = new List<Customer>();
-            customersMySql = mySqlController.GetCustomersMySql();
 
-            mongoController.AddCustomerMongoDB(customersMySql);
+            customersMySql = mySqlController.SyncCustomersMySql();
+
+            await mySqlController.UpdateMySqlCustomers(customersMySql);
+
+            await mongoController.AddCustomerMongoDB(customersMySql);
+
+            _logger.LogInformation("Customers synced to Mongo");
 
 			return RedirectToAction("Index");
         }
