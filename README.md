@@ -63,8 +63,3 @@ You can access the Web App here: [Sync Databases](https://project1-dimitrimll.az
    git clone https://github.com/DimitriMll/Project1.git
 
 2. Run the "Front End" project on Visual Studio
-
-## To-Dos | Project improvements
-
-- Add `Edit` and `Delete` operations for each customer | **28/01**
-- Work with `Status` based database sync and update `Status` on the source database after Sync | **28/01**
