@@ -39,7 +39,9 @@ namespace FrontEnd.Controllers
         {
             List<Customer>customersMySql = new List<Customer>();
 
-            customersMySql = mySqlController.GetCustomersMySql();
+            customersMySql = mySqlController.SyncCustomersMySql();
+
+            await mySqlController.UpdateMySqlCustomers(customersMySql);
 
             await mongoController.AddCustomerMongoDB(customersMySql);
 
