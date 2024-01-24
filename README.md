@@ -38,9 +38,9 @@ The project aims to showcase integration with both relational (MySQL) and no rel
 ### How it works
 - You can add a customer filling the form
 ![Add Customer](https://github.com/DimitriMll/DimitriMll/blob/main/assets/addCustomer.png?raw=true)
-- Then it will be displayed as it follows
+- The new customer will be added with `Status = 1`
 ![Database](https://github.com/DimitriMll/DimitriMll/blob/main/assets/databases.png?raw=true)
-- Then you can sync the databases clicking the `Sync Databases` button
+- Then you can sync the databases clicking the `Sync Databases` button, the customer will change to `Status = 2`
 ![Sync Databases](https://github.com/DimitriMll/DimitriMll/blob/main/assets/syncDatabases.png?raw=true)
 
 You can access the Web App here: [Sync Databases](https://project1-dimitrimll.azurewebsites.net/)
