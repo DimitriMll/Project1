@@ -12,11 +12,12 @@ namespace FrontEnd.Controllers
 
         public DatabaseController()
         {
-            string server = "sql5.freesqldatabase.com";
-            string database = "sql5673207";
-            string username = "sql5673207";
-            string password = "8PH51R8Euv";
-            _connectionString = $"Server={server};Database={database};Uid={username};Pwd={password};";
+            string server = "mysql-database-sync-databases.a.aivencloud.com";
+            string database = "defaultdb";
+            string username = "avnadmin";
+            string password = "AVNS_gt1fakJ31ezZm7yaQPX";
+            int port = 14469;
+            _connectionString = $"Server={server};Port={port};Database={database};User ID={username};Password={password};";
 
             var mongoUri = "mongodb+srv://admin:admin@cluster1.j4jqugk.mongodb.net/";
             var dbName = "Cluster1DB";
